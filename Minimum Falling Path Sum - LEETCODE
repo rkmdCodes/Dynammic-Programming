@@ -1,0 +1,63 @@
+class Solution {
+public:
+     
+    
+                    //concept of the tabulation
+     
+    
+    
+//     int solve(int i, int j ,vector<vector<int>>& matrix,vector<vector<int>>& dp)
+//     {
+//         if(j < 0 || j >= matrix[0].size())
+//             return 1e9 ;
+        
+//         if(i == 0)
+//             return matrix[0][j];
+        
+//         if(dp[i][j] != -1)
+//             return dp[i][j];
+        
+//         int up = matrix[i][j] + solve(i-1,j,matrix,dp);
+//         int ld = matrix[i][j] + solve(i-1,j-1,matrix,dp);
+//         int rd = matrix[i][j] + solve(i-1,j+1,matrix,dp);
+        
+//         return dp[i][j] = min(up,min(ld,rd));
+        
+//     }
+    
+    
+    
+    //concept of the tabulation 
+    
+    
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        
+        vector<vector<int>>dp(n,vector<int>(m,0));
+        
+        int mini = INT_MAX;
+        for(int j = 0;j<m;j++)
+            dp[0][j] = matrix[0][j];
+        
+        for(int i = 1;i<n;i++)
+        {
+            for(int j = 0;j<m;j++)
+            { int up= INT_MAX,ld=INT_MAX,rd=INT_MAX;
+               up = matrix[i][j] + dp[i-1][j];
+              if(j-1>=0)
+                   ld = matrix[i][j] + dp[i-1][j-1];
+              if(j+1 < n)
+                   rd = matrix[i][j] + dp[i-1][j+1];
+                
+              dp[i][j] = min({up,ld,rd});  
+            }
+        }
+        
+        for(int j = 0;j<m;j++)
+        {
+            mini = min(mini,dp[n-1][j]);
+        }
+           
+    return mini;}
+};
