@@ -1,0 +1,56 @@
+class Solution{   
+public:
+ 
+ 
+//   TC - O(n into target)
+//   SP - O(n into target)
+
+  // this is the recursive solutgion to the problem
+    
+    
+    // bool solve(int i,int target,vector<int>& arr,vector<vector<int>>& dp)
+    // {
+    //     if(target == 0)
+    //      return true;
+    //     if(i == 0)
+    //      return arr[0] == target;
+    //      if(dp[i][target] != -1)
+    //         return dp[i][target];
+            
+    //      bool not_pick = solve(i-1,target,arr,dp);
+    //      bool pick = false;
+    //      if(target >= arr[i])
+    //       pick = solve(i-1,target-arr[i],arr,dp);
+          
+    //      return dp[i][target] = not_pick || pick; 
+    // }
+    
+
+    //tabulatgion approach to solve the problem 
+    
+//     bool isSubsetSum(vector<int>arr, int sum){
+//         vector<vector<bool>> dp(arr.size()+1,vector<bool>(sum+1,0));
+         
+//          for(int i = 0 ; i<arr.size();i++)
+//          {
+//              dp[i][0] = true;
+//          }
+//          dp[0][arr[0]] = true;
+         
+//          for(int ind = 1;ind<arr.size();ind++)
+//          {
+//           for(int target = 1;target<= sum;target++)
+//           {
+//               bool not_pick = dp[ind-1][target];
+//               bool pick = false;
+//               if(target >= arr[ind])
+//                 pick = dp[ind-1][target-arr[ind]];
+          
+//             dp[ind][target] = not_pick || pick; 
+            
+//           }
+//          }
+      
+//         return dp[arr.size()-1][sum];
+//     }
+// };
