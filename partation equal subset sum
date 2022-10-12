@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    //This problem is a problem based on the problem subset sum equal to the
+    //target as here to find the some subset whose sum is half of total sum of
+    //arry then we can say we find so just pass target as totlsum/2 and if total
+    //sum gis odd cant divgide it equally return false
+
+    
+    // TC-O(n* totalsum/2)
+    // SC-O(n* totalsum/2)
+
+    
+   
+    bool solve(int i,int target,vector<int>& arr,vector<vector<int>>& dp)
+    {
+        if(target == 0)
+         return true;
+        if(i == 0)
+         return arr[0] == target;
+         if(dp[i][target] != -1)
+            return dp[i][target];
+
+         bool not_pick = solve(i-1,target,arr,dp);
+         bool pick = false;
+         if(target >= arr[i])
+          pick = solve(i-1,target-arr[i],arr,dp);
+
+         return dp[i][target] = not_pick || pick; 
+    }
+    
+    
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int totSum = accumulate(nums.begin(),nums.end(),0);
+        if(totSum%2 != 0)
+            return false;
+        vector<vector<int>> dp(n+1,vector<int>(totSum+1,-1));
+        int sum = totSum / 2;
+        return solve(n-1,sum,nums,dp);
+    }
+};
