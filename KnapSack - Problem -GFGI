@@ -1,0 +1,48 @@
+  public:
+    TC-O(n*w)
+    SP-O(n*w)
+    //recurive soln
+    
+    int soln(int gind,int lft,int arr[],int nums[],vector<vector<int>>& dp )
+    {
+        if(gind == 0)
+        {
+            if(lft >= arr[0])
+              return nums[0];
+        return 0;      
+        }
+      if(dp[gind][lft] != -1)
+          return dp[gind][lft];
+      int not_take = 0 + soln(gind-1,lft,arr,nums,dp);
+      int take = INT_MIN;
+      if(lft >= arr[gind])
+          take = nums[gind] + soln(gind-1,lft-arr[gind],arr,nums,dp);
+         
+    return dp[gind][lft] = max(not_take,take);        
+    }
+    
+    
+    //Function to return max value that can be put in knapsack of capacity W.
+
+    //tabulatgion
+    
+    int knapSack(int lft, int arr[], int nums[], int n) 
+    { int W = lft;
+        vector<vector<int>> dp(n,vector<int>(lft+1,0));
+        for(int i =arr[0];i<=lft;i++)
+           dp[0][i] = nums[0];
+           
+        for(int i = 1;i<n;i++)
+         {
+             for(int wt = 0;wt<=lft;wt++)
+             {
+                  int not_take = 0 + dp[i-1][wt];
+                  int take = INT_MIN;
+                  if(wt>= arr[i])
+                     take = nums[i] + dp[i-1][wt-arr[i]];//-arr[gind],arr,nums,dp)
+                  dp[i][wt] = max(not_take,take);   
+             }
+         }
+         
+        return dp[n-1][lft];
+    }
