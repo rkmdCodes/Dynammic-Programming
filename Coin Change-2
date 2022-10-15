@@ -1,0 +1,51 @@
+class Solution {
+public:
+    
+    //recursive
+    
+    int soln(int gind,int amount,vector<int>& coins,vector<vector<int>>& dp)
+    {
+        
+        if(gind == 0)
+        {
+            if(amount%coins[gind]==0)
+                return 1;
+            return 0;
+        }
+        
+       if(dp[gind][amount] != -1)
+           return dp[gind][amount];
+       int not_take =  soln(gind-1,amount,coins,dp);
+       int take = 0;
+       
+       if(amount >= coins[gind])
+          take = soln(gind,amount-coins[gind],coins,dp);
+        
+      return dp[gind][amount] = take+not_take; 
+    }
+    
+    ///tabulation
+    
+    int change(int amount, vector<int>& coins) {
+       vector<vector<int>> dp(coins.size(),vector<int>(amount+1,-1));
+        
+        for(int gi  = 0;gi<=amount;gi++)
+        {
+            dp[0][gi] = gi%coins[0] == 0;
+        }
+        
+        for(int gind =1;gind<coins.size();gind++)
+        {
+            for(int curr = 0;curr<=amount;curr++)
+            {
+                int not_take =  dp[gind-1][curr];//,coins,dp);
+                int take = 0;
+        
+                if(curr >= coins[gind])
+                     take = dp[gind][curr-coins[gind]];//,coins,dp);
+        
+                dp[gind][curr] = take+not_take; 
+            }
+        }
+    return dp[coins.size()-1][amount];}
+};
