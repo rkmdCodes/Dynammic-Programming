@@ -1,0 +1,55 @@
+
+    int soln(int gind,int lft,int arr[],int nums[],vector<vector<int>>& dp)
+    {
+        if(gind == 0)
+           {
+               if(lft >= arr[0])
+                return nums[0]*(lft/arr[0]);
+                return 0;
+           }
+           
+        if(dp[gind][lft] != -1)
+           return dp[gind][lft];
+        int not_pick =0 + soln(gind-1,lft,arr,nums,dp);
+        int pick = -1e9;
+        
+        if(lft >= arr[gind])
+          pick = nums[gind] + soln(gind,lft-arr[gind],arr,nums,dp);
+          
+         return dp[gind][lft]=max(not_pick,pick);
+    }
+    
+    
+    
+    //tabulation
+    
+    
+    
+    int knapSack(int N, int W, int nums[], int arr[]){
+    
+      vector<vector<int>> dp(N,vector<int>(W+1,0));
+      
+      for(int gi = 0;gi<=W;gi++)
+      {
+          if(gi>=arr[0])
+              dp[0][gi] = nums[0]*(gi/arr[0]);
+           else
+              dp[0][gi] = 0;
+      }      
+      
+      for(int gind = 1;gind<N;gind++)
+       {
+           for(int lft = 0;lft<=W;lft++)
+           {
+               int not_pick =0 + dp[gind-1][lft];//,arr,nums,dp);
+               int pick = -1e9;
+        
+               if(lft >= arr[gind])
+               pick = nums[gind] + dp[gind][lft-arr[gind]];//,arr,nums,dp);
+          
+               dp[gind][lft]=max(not_pick,pick);
+            }
+       }
+       return dp[N-1][W];
+    }
+};
