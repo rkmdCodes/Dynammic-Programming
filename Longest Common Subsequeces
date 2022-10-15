@@ -1,0 +1,43 @@
+//recursive soln index shifted
+   
+    int soln(int i,int j,string& s,string& t,vector<vector<int>>& dp)
+    {
+        if(i == 0 || j == 0)
+            return 0;
+        
+        if(dp[i-1][j-1] != -1)
+            return dp[i-1][j-1];
+        
+        if(s[i-1] == t[j-1])
+            return 1 + soln(i-1,j-1,s,t,dp);
+        
+        return dp[i-1][j-1] = max(soln(i-1,j,s,t,dp),soln(i,j-1,s,t,dp));
+    }
+    
+    
+    //tabulation solution index shifted
+    
+    
+    int longestCommonSubsequence(string text1, string text2) {
+        int n = text1.size();
+        int m = text2.size();
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        
+        for(int gi = 0;gi<=n;gi++)
+            dp[gi][0] = 0;
+        
+        for(int gi = 0;gi<=m;gi++)
+            dp[0][gi] = 0;
+        
+        for(int gi =1;gi<=n;gi++)
+        {
+            for(int j = 1;j<=m;j++)
+            {
+                if(text1[gi-1] == text2[j-1])
+                  dp[gi][j]= 1 + dp[gi-1][j-1];
+                else
+                    dp[gi][j] = max(dp[gi-1][j],dp[gi][j-1]);
+        }}
+        
+        return dp[n][m];
+    };
